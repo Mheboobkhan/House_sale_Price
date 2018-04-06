@@ -19,7 +19,29 @@ total = dataset.isnull().sum().sort_values(ascending=False)
 percent = (dataset.isnull().sum()/dataset.isnull().count()).sort_values(ascending=False)
 missing_data = pd.concat([total, percent], axis=1, keys=['Total', 'Percent'])
 missing_data.head(20)
-pd.read_csv('train.csv')
+ 
+"""            Total   Percent
+PoolQC         1453  0.995205
+MiscFeature    1406  0.963014
+Alley          1369  0.937671
+Fence          1179  0.807534
+FireplaceQu     690  0.472603
+LotFrontage     259  0.177397
+GarageCond       81  0.055479
+GarageType       81  0.055479
+GarageYrBlt      81  0.055479
+GarageFinish     81  0.055479
+GarageQual       81  0.055479
+BsmtExposure     38  0.026027
+BsmtFinType2     38  0.026027
+BsmtFinType1     37  0.025342
+BsmtCond         37  0.025342
+BsmtQual         37  0.025342
+MasVnrArea        8  0.005479
+MasVnrType        8  0.005479
+Electrical        1  0.000685
+Utilities         0  0.000000"""
+
 #dealing with missing data
 dataset = dataset.drop((missing_data[missing_data['Total'] > 1]).index,1)
 dataset = dataset.drop(dataset.loc[dataset['Electrical'].isnull()].index)
@@ -30,6 +52,7 @@ dataset.isnull().sum().max() #just checking that there's no missing data missing
 corrmat = dataset.corr()
 f, ax = plt.subplots(figsize=(12, 9))
 sns.heatmap(corrmat, vmax=.8, square=True);
+
 
 #saleprice correlation matrix
 k = 10 #number of variables for heatmap
